@@ -1,0 +1,76 @@
+# A Dockerfile with everything
+# From https://gist.github.com/junjaytan/cf40492b726699f62ac7
+FROM <image>:<tag>
+
+MAINTAINER <name>
+
+# RUN executes any commands in a new layer on top of the current image and 
+# commits the results. The resulting committed image will be used for the 
+# next step in the Dockerfile
+# 2 forms:
+#   RUN <command> (shell form if /bin/sh exists)
+#   RUN ["executable", "param1", "param2"] (exec form)
+RUN /bin/bash -c 'source $HOME/.bashrc ;\
+RUN ["/bin/bash", "-c", "echo hello"]
+
+# CMD provides defaults for an executing container
+# 3 forms:
+#   CMD ["executable","param1","param2"] (exec form, preferred)
+#   CMD ["param1","param2"]
+#   CMD command param1 param2 (shell form)
+CMD echo "This is a test." | wc -
+
+# LABEL instruction adds metadata to an image
+# form: LABEL <key>=<value> <key>=<value> <key>=<value> ...
+LABEL "com.example.vendor"="ACME Incorporated"
+LABEL com.example.label-with-value="foo"
+LABEL version="1.0"
+LABEL description="This text illustrates \
+that label-values can span multiple lines."
+
+# EXPOSE instruction informs Docker that the container listens on the specified network ports at runtime. 
+# EXPOSE does not make the ports of the container accessible to the host. To do that, 
+# you must use either the -p flag to publish a range of ports or the -P flag to publish all of the exposed ports
+EXPOSE <port> [<port>...]
+
+# ENV instruction sets the environment variable <key> to the value <value>. This value will be 
+# in the environment of all “descendent” Dockerfile commands and can be replaced inline in many as well
+# forms:  ENV <key> <value>
+#         ENV <key>=<value> ...
+ENV myName="John Doe" myDog=Rex\ The\ Dog \
+    myCat=fluffy
+    
+# ADD instruction copies new files, directories or remote file URLs from <src> and adds them to the 
+# filesystem of the container at the path <dest>
+# forms:
+#     ADD <src>... <dest>
+#     ADD ["<src>",... "<dest>"] (required for paths containing whitespace)
+ADD hom* /mydir/        # adds all files starting with "hom"
+ADD hom?.txt /mydir/    # ? is replaced with any single character, e.g., "home.txt"
+
+# COPY instruction copies new files or directories from <src> and adds them 
+# to the filesystem of the container at the path <dest>.
+COPY hom* /mydir/        # adds all files starting with "hom"
+COPY hom?.txt /mydir/    # ? is replaced with any single character, e.g., "home.txt"
+
+# ENTRYPOINT allows you to configure a container that will run as an executable.
+# 2 forms
+#     ENTRYPOINT ["executable", "param1", "param2"] (exec form, preferred)
+#     ENTRYPOINT command param1 param2 (shell form)
+ENTRYPOINT ["executable", "param1", "param2"]
+
+# VOLUME instruction creates a mount point with the specified name and marks it as 
+# holding externally mounted volumes from native host or other containers. The 
+# value can be a JSON array, VOLUME ["/var/log/"], or a plain string with multiple arguments, 
+# such as VOLUME /var/log or VOLUME /var/log /var/db
+VOLUME /myvol
+
+# USER instruction sets the user name or UID to use when running the image and 
+# for any RUN, CMD and ENTRYPOINT instructions that follow it in the Dockerfile
+USER daemon
+
+# WORKDIR instruction sets the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD 
+# instructions that follow it in the Dockerfile. It can be used multiple times in the one Dockerfile
+WORKDIR /a
+WORKDIR b
+WORKDIR c
