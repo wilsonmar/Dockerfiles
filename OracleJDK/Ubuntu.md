@@ -2,6 +2,11 @@ https://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-w
 
 ## Installing default latest JRE/JDK
 
+The Default version differs:
+
+   * Ubuntu 12.04 and earlier version have Open JDK 6  
+   * Ubuntu 12.10+ versions have Open JDK 7. 
+
 First, update the package index:
 
    sudo apt-get update
