@@ -1,4 +1,5 @@
 https://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get
+https://poweruphosting.com/blog/install-java-ubuntu/
 
 The Oracle JDK is no longer provided by Oracle as a default installation for Ubuntu.
 
