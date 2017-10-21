@@ -1,11 +1,13 @@
 https://www.digitalocean.com/community/tutorials/how-to-install-java-on-ubuntu-with-apt-get
 
-## Installing default latest JRE/JDK
+The Oracle JDK is no longer provided by Oracle as a default installation for Ubuntu.
 
-The Default version differs:
+## Installing default JRE/JDK
 
-   * Ubuntu 12.04 and earlier version have Open JDK 6  
+The default version differs by OS version:
+
    * Ubuntu 12.10+ versions have Open JDK 7. 
+   * Ubuntu 12.04 and earlier version have Open JDK 6  
 
 First, update the package index:
 
@@ -38,9 +40,7 @@ For JDK 7:
 
    sudo apt-get install openjdk-7-jdk
 
-Installing Oracle JDK (optional)
-
-The Oracle JDK is the official JDK; however, it is no longer provided by Oracle as a default installation for Ubuntu.
+## Installing Oracle JDK (optional)
 
 You can still install it using apt-get. To install any version, first execute the following commands:
 
@@ -53,25 +53,23 @@ Oracle JDK 6
 
 This is an old version but still in use.
 
-sudo apt-get install oracle-java6-installer
+   sudo apt-get install oracle-java6-installer
 
 Oracle JDK 7
 
 This is the latest stable version.
 
-sudo apt-get install oracle-java7-installer
+   sudo apt-get install oracle-java7-installer
 
 Oracle JDK 8
 
-This is a developer preview, the general release is scheduled for March 2014. This external article about Java 8 may help you to understand what it's all about.
-
-sudo apt-get install oracle-java8-installer
+   sudo apt-get install oracle-java8-installer
 
 Managing Java (optional)
 
 When there are multiple Java installations on your Droplet, the Java version to use as default can be chosen. To do this, execute the following command:
 
-sudo update-alternatives --config java
+   sudo update-alternatives --config java
 
 It will usually return something like this if you have 2 installations (if you have more, it will of course return more):
 
@@ -87,14 +85,14 @@ Press enter to keep the current choice[*], or type selection number:
 
 You can now choose the number to use as default. This can also be done for the Java compiler (javac):
 
-sudo update-alternatives --config javac
+   sudo update-alternatives --config javac
 
 It is the same selection screen as the previous command and should be used in the same way. This command can be executed for all other commands which have different installations. In Java, this includes but is not limited to: keytool, javadoc and jarsigner.
 Setting the "JAVA_HOME" environment variable
 
 To set the JAVA_HOME environment variable, which is needed for some programs, first find out the path of your Java installation:
 
-sudo update-alternatives --config java
+   sudo update-alternatives --config java
 
 It returns something like:
 
@@ -118,18 +116,18 @@ The path of the installation is for each:
 
 Copy the path from your preferred installation and then edit the file /etc/environment:
 
-sudo nano /etc/environment
+   sudo nano /etc/environment
 
 In this file, add the following line (replacing YOUR_PATH by the just copied path):
 
-JAVA_HOME="YOUR_PATH"
+   JAVA_HOME="YOUR_PATH"
 
 That should be enough to set the environment variable. Now reload this file:
 
-source /etc/environment
+   source /etc/environment
 
 Test it by executing:
 
-echo $JAVA_HOME
+   echo $JAVA_HOME
 
 If it returns the just set path, the environment variable has been set successfully. If it doesn't, please make sure you followed all steps correctly.
