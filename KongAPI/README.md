@@ -1,29 +1,25 @@
-https://getkong.org
-
 0. Instantiate server on Google.
-0. Access data for Kong
 
-These are the Cassandra credentials for the administrator user.
+0. Access data for Kong to change the default credentials on first login.
 
-Username: cassandra
-Password: Created on first boot. Follow these instructions on how to retrieve the password. 
+   These are the Cassandra credentials for the administrator user.
 
-You should change the default credentials on first login.
-System Access Data
+   Username: cassandra
+   Password: Created on first boot. Follow these instructions on how to retrieve the password. 
 
-To access the machine via SSH you need to follow the instructions in the documentation.
-https://docs.bitnami.com/google/faq/#how-to-connect-to-the-server-through-ssh
+0. System Access Data
 
-Username
-    Set during the virtual machine launch
+   To access the machine via SSH, follow instructions in the documentation.
+   https://docs.bitnami.com/google/faq/#how-to-connect-to-the-server-through-ssh
 
-Getting started
-Your Kong instance is connected to the Cassandra database included in this server.
-The Control Script
-A control script lets you easily stop, start and restart Kong and Cassandra. You can obtain a list of available services and operations by running the following script (without any arguments):
+   Username: Set during the virtual machine launch
 
+0. A control script lets you easily stop, start and restart Kong and Cassandra. 
+   Obtain a list of available services and operations by running this script (without any arguments):
 
-      $ sudo /opt/bitnami/ctlscript.sh    
+   <pre><strong>
+   sudo /opt/bitnami/ctlscript.sh    
+   </strong></pre>
       
 
 Kong CLI
@@ -56,14 +52,20 @@ Do you need help?
 
 A Quick Start Guide and FAQs for Kong are available in the Bitnami Documentation for Google Cloud Platform.
 
-If you can't find an answer to your question there, post to our active Community forums.
-Disabling this welcome screen
-
-You can disable this welcome screen by removing the following in /opt/bitnami/apps/kong/conf/kong_nginx.tmpl:
+   If you can't find an answer to your question there, post to our active Community forums.
 
 
-        include /opt/kong/apps/bitnami/banner/conf/infopage.conf;
-      
+0. Edit file in /opt/bitnami/apps/kong/conf/kong_nginx.tmpl
+   to disable the welcome screen by removing this:
 
-Then restart Kong:
-$ sudo /opt/bitnami/ctlscript.sh restart kong 
+   <pre>
+   include /opt/kong/apps/bitnami/banner/conf/infopage.conf;
+   </pre>
+
+0. restart Kong:
+
+   <pre><strong>sudo /opt/bitnami/ctlscript.sh restart kong 
+   </strong></pre>
+
+0. For more, read https://getkong.org
+
