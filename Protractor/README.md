@@ -3,6 +3,8 @@ Protractor is used to test Angular apps. See
    * https://angular.io/tutorial (A Tour of Heros)
    * https://github.com/angular/angular-cli/wiki = CLI Documentation
    * https://blog.angular.io/ = Angular Blog
+   * An alternative (not referenenced here):
+   https://github.com/angular/protractor
    
 1. Sign into your Gmail account for billing.
 2. Within Google Compute Engine, create a server instance:
@@ -17,9 +19,6 @@ Protractor is used to test Angular apps. See
  
    https://github.com/ramkict/aprotractor
 
-   NOTE: An alternative (not referenenced here):
-   https://github.com/angular/protractor
-   
 0. Run Maven ?
 
 0. In a browser, visit the IP address for the Angular app's UI: http://35.197.119.148/ 
