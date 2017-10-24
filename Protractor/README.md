@@ -32,18 +32,21 @@ Protractor is used to test Angular apps. See
  
    A VNC session should open within "Screen Sharing" app on MacOS.
  
-0. Open a terminal session and navigate to the folder:
-
-   /home/njganeshv/aprotractor/aprotractor
-
 0. For deploying your version of the Angular APP, refresh the folder with your app content at:
 
    /var/www/html
+   
+   This contains index.html, facicon.ico, and various .js files and the .js.map files they reference.
  
 0. To restart the NGINX server on the VM use 
 
    sudo systemctl restart nginx
  
+0. Open a terminal session and navigate to the folder:
+
+   cd /home/njganeshv/
+   cd aprotractor/aprotractor
+
 0. Run in the GCP VM:
 
    ng test
