@@ -1,3 +1,9 @@
+Protractor is used to test Angular apps. See 
+
+   * https://angular.io/tutorial (A Tour of Heros)
+   * https://github.com/angular/angular-cli/wiki = CLI Documentation
+   * https://blog.angular.io/ = Angular Blog
+   
 1. Sign into your Gmail account for billing.
 2. Within Google Compute Engine, create a server instance:
 
