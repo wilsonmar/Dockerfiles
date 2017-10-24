@@ -40,20 +40,28 @@ Protractor is used to test Angular apps. See
  
 0. To restart the NGINX server on the VM use 
 
+   <pre>
    sudo systemctl restart nginx
- 
+    </pre>
+
 0. Open a terminal session and navigate to the folder:
 
+   <pre>
    cd /home/njganeshv/
    cd aprotractor/aprotractor
-
+   </pre>
+   
 0. Run in the GCP VM:
 
+   <pre>
    ng test
+   </pre>
 
 0. Also run in the GCP VM:
 
+   <pre>
    ng e2e
+   </pre>
 
    This spawns off chrome session to perform the tests.
 
