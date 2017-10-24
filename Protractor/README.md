@@ -42,7 +42,7 @@ Protractor is used to test Angular apps. See
 
    <pre>
    sudo systemctl restart nginx
-    </pre>
+   </pre>
 
 0. Open a terminal session and navigate to the folder:
 
