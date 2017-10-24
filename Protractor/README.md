@@ -1,23 +1,27 @@
-Protractor is used to test Angular apps. See 
-
-   * https://angular.io/tutorial (A Tour of Heros)
-   * https://github.com/angular/angular-cli/wiki = CLI Documentation
-   * https://blog.angular.io/ = Angular Blog
-   * An alternative (not referenenced here):
-   https://github.com/angular/protractor
+Protractor is used to test Angular apps. 
    
 1. Sign into your Gmail account for billing.
 2. Within Google Compute Engine, create a server instance:
 
-   https://console.cloud.google.com/compute/instances?project=attiopinfosys
+   <a target="_blank" href="
+   https://console.cloud.google.com/compute/instances?project=attiopinfosys">
+   https://console.cloud.google.com/compute/instances?project=attiopinfosys</a>
  
    Disk space?
  
 3. In the VM, deploy NodeJS, NPM, Angular CLI, and NGINX server, git.
 
-0. Clone
+0. Clone from source repository:
  
-   https://github.com/ramkict/aprotractor
+   <a target="_blank" href="
+   https://github.com/ramkict/aprotractor">
+   https://github.com/ramkict/aprotractor</a>
+
+   The app UI is a big Angular logo with 3 links:
+
+   * https://angular.io/tutorial (A Tour of Heros)
+   * https://github.com/angular/angular-cli/wiki = CLI Documentation
+   * https://blog.angular.io/ = Angular Blog
 
 0. Run Maven ?
 
@@ -71,4 +75,6 @@ Protractor is used to test Angular apps. See
 0. To run the application. Use the command ng serve. This will instantiate an HTTP server on port 4200.
 
 0. Invoke the Chrome browser from VNC session to connect to http://localhost:4200/ to browse through the application.
+
+An alternative app (not referenenced here): https://github.com/angular/protractor
 
