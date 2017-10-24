@@ -27,7 +27,7 @@ Protractor is used to test Angular apps.
 
 0. In a browser, visit the IP address for the Angular app's UI: http://35.197.119.148/ 
 
-0. Use a VNC client to visit the instance at VNC port 5901. For example:
+0. Use a VNC client to visit the instance at VNC port 5901. For example, on a Mac Safari browser:
 
    VNC://35.197.119.148:5901
 
