@@ -66,6 +66,8 @@ Protractor is used to test Angular apps. See
    This spawns off chrome session to perform the tests.
 
    See results of the test will get displayed on the terminal window.
+   
+   http://localhost:4200/list
 
 0. To run the application. Use the command ng serve. This will instantiate an HTTP server on port 4200.
 
