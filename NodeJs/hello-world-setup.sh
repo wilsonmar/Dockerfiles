@@ -1,5 +1,5 @@
 # Within Google Cloud, setup using Docker an instance of a "hello-world" NodeJS sample server.
-# 
+# bash <(curl -s https://raw.githubusercontent.com/wilsonmar/Dockerfiles/master/NodeJs/hello-world-setup.sh)
 
 # Install curl if it's not already:
 # sudo apt-get install curl
