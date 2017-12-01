@@ -8,7 +8,7 @@
 # This sets a property defined in Google documentation, so I don't what side affects there may be.
 # This is used until I can figure out how to access the property in bash scripts.
 
-   export CLOUDSDK_COMPUTE_ZONE=us-central1-f
+   export CLOUDSDK_COMPUTE_ZONE=us-central1-d
    export CLOUDSDK_COMPUTE_REGION=us-central1 
    echo "Setting CLOUDSDK_COMPUTE_ZONE=$CLOUDSDK_COMPUTE_ZONE in CLOUDSDK_COMPUTE_REGION=${CLOUDSDK_COMPUTE_REGION}"
 
