@@ -17,7 +17,7 @@ ACR_LOCATION="southcentralus"
 #    (A premium registry SKU is needed for geo-replication.
 RES_GROUP="e2aa9a5e-9731-4095-a768-ea72a3026c19"
    #RES_GROUP=$ACR_NAME ? in https://docs.microsoft.com/en-us/azure/container-registry/container-registry-tutorial-quick-task
-
+CONTAINER="helloacrtasks:v1"
 # Create an Azure Container Registry for an app:
 az acr create --name $ACR_NAME --sku Premium \
    --resource-group $RES_GROUP
@@ -32,13 +32,13 @@ curl "https://raw.githubusercontent.com/wilsonmar/Dockerfiles/master/azure-node/
 
 # Build a Docker container image containing Node:
    az acr build --registry $ACR_NAME \
-   --image "helloacrtasks:v1" .  
+   --image $CONTAINER .  
       #    Don't forget the "." at the end to denote the current folder.
 
 # Verify the image:
    az acr repository list \
    --name $ACR_NAME --output table
-      # Response: helloacrtasks
+      # Response: helloacrtasks (= $CONTAINER)
 
 # Enable the registry admin account
 az acr update -n $ACR_NAME --admin-enabled true
@@ -83,4 +83,4 @@ curl $IP_ADDRESS
 
 # Clean up resources:
 az container delete --resource-group $RES_GROUP \
-   --name acr-tasks
+   --name $CONTAINER
