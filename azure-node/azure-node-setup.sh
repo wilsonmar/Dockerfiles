@@ -1,14 +1,14 @@
 #!/bin/bash
 # azure-node-setup.sh
 # Run this from any directory:
-# sh -c "$(curl -fsSL https://raw.githubusercontent.com/wilsonmar/Dockerfiles/master/azure-node/azure-node-setup.sh)"
+# bash -c "$(curl -fsSL https://raw.githubusercontent.com/wilsonmar/Dockerfiles/master/azure-node/azure-node-setup.sh)"
 # Explained at https://wilsonmar.github.io/azure-cloud
 # And https://docs.microsoft.com/en-us/azure/container-registry/container-registry-tutorial-quick-task
 # Based on Microsoft Learn module Administer containers in Azure at 
    # https://docs.microsoft.com/learn/paths/administer-containers-in-azure
 
 # This is idempotent by removing what is left over from previous run.
-RESULT="$(RANDOM)"
+RESULT="$($RANDOM)"
 echo RESULT
 exit
 
