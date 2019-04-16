@@ -29,16 +29,6 @@ echo "COSMOS_DB_NAME=$COSMOS_DB_NAME"
 exit
 
 
-#3 Define reusable functions:
-function echo_f() {  # echo fancy comment
-  local fmt="$1"; shift
-  printf "\\n    >>> $fmt\\n" "$@"
-}
-function echo_c() {  # echo common comment
-  local fmt="$1"; shift
-  printf "        $fmt\\n" "$@"
-}
-
 # Create Cosmos (NOSQL) db:
 COSMOS_DB_ENDPOINT=$(az cosmosdb create \
   --resource-group ee9ae253-1d6a-4b80-88e7-909c9f403a95 \
