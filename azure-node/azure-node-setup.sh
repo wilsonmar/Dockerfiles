@@ -81,3 +81,6 @@ IP_ADDRESS=RESPONSE | grep ???
 # Now view the website using the ip address
 curl $IP_ADDRESS
 
+# Clean up resources:
+az container delete --resource-group $RES_GROUP \
+   --name acr-tasks
