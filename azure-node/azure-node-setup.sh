@@ -19,7 +19,9 @@ ACR_LOCATION2="japaneast"
 RES_GROUP="e2aa9a5e-9731-4095-a768-ea72a3026c19"
    #RES_GROUP=$ACR_NAME ? in https://docs.microsoft.com/en-us/azure/container-registry/container-registry-tutorial-quick-task
 CONTAINER="helloacrtasks:v1"
-echo "RESULT=RANDOM"
+RESULT=RANDOM
+echo "RESULT=$RESULT"
+
 RESULT2="$((1 + $RANDOM % 1000))"
 echo "RESULT=$RESULT, RESULT2=$RESULT2"
 exit
