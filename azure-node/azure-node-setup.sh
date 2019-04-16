@@ -20,12 +20,39 @@ RES_GROUP="e2aa9a5e-9731-4095-a768-ea72a3026c19"
    #RES_GROUP=$ACR_NAME ? in https://docs.microsoft.com/en-us/azure/container-registry/container-registry-tutorial-quick-task
 CONTAINER="helloacrtasks:v1"
 echo "RESULT=$RANDOM"
-RESULT2="aci-cosmos-db-$($RANDOM)"
+RESULT2=$((1 + RANDOM % 1000))
 echo "RESULT2=$RESULT2"
+exit
 
 COSMOS_DB_NAME="aci-cosmos-db-$RANDOM"
 echo "COSMOS_DB_NAME=$COSMOS_DB_NAME"
 exit
+
+
+#3 Define reusable functions:
+function echo_f() {  # echo fancy comment
+  local fmt="$1"; shift
+  printf "\\n    >>> $fmt\\n" "$@"
+}
+function echo_c() {  # echo common comment
+  local fmt="$1"; shift
+  printf "        $fmt\\n" "$@"
+}
+
+#4 Collect starting system information and display on console:
+TIME_START="$(date -u +%s)"
+#FREE_DISKBLOCKS_END=$(df | sed -n -e '2{p;q}' | cut -d' ' -f 6) # no longer works
+FREE_DISKBLOCKS_START="$(df -P | awk '{print $4}' | sed -n 2p)"  # e.g. 342771200 from:
+   # Filesystem    512-blocks      Used Available Capacity  Mounted on
+   # /dev/disk1s1   976490568 611335160 342771200    65%    /
+LOG_PREFIX=$(date +%Y-%m-%dT%H:%M:%S%z)-$((1 + RANDOM % 1000))
+   # ISO-8601 date plus RANDOM=$((1 + RANDOM % 1000))  # 3 digit random number.
+   #  LOGFILE="$0.$LOG_PREFIX.log"
+echo_f "STARTING $0 within $PWD"
+echo_c "at $LOG_PREFIX with $FREE_DISKBLOCKS_START blocks free ..."
+
+#########
+
 
 # Create Cosmos (NOSQL) db:
 COSMOS_DB_ENDPOINT=$(az cosmosdb create \
