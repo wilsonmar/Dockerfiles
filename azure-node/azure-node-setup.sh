@@ -19,6 +19,9 @@ ACR_LOCATION2="japaneast"
 RES_GROUP="e2aa9a5e-9731-4095-a768-ea72a3026c19"
    #RES_GROUP=$ACR_NAME ? in https://docs.microsoft.com/en-us/azure/container-registry/container-registry-tutorial-quick-task
 CONTAINER="helloacrtasks:v1"
+echo "RESULT=$RANDOM"
+RESULT2="aci-cosmos-db-$($RANDOM)"
+echo "RESULT2=$RESULT2"
 
 COSMOS_DB_NAME="aci-cosmos-db-$RANDOM"
 echo "COSMOS_DB_NAME=$COSMOS_DB_NAME"
