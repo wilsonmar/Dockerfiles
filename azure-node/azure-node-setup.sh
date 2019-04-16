@@ -8,7 +8,7 @@
    # https://docs.microsoft.com/learn/paths/administer-containers-in-azure
 
 # This is idempotent by removing what is left over from previous run.
-RESULT="$RANDOM"
+RESULT="$(RANDOM)"
 echo RESULT
 exit
 
