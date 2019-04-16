@@ -11,13 +11,61 @@
 
 ACR_NAME="myApp123Registry"  # this must be unique among all others on Azure
    # Where myApp123 = service short name per https://docs.microsoft.com/en-us/azure/architecture/best-practices/naming-conventions
-ACR_LOCATION="southcentralus"
+ACR_LOCATION="southcentralus"  # eastus, etc.
+ACR_LOCATION2="japaneast"
 
 # To create an Azure Container Registry for an app:
 #    (A premium registry SKU is needed for geo-replication.
 RES_GROUP="e2aa9a5e-9731-4095-a768-ea72a3026c19"
    #RES_GROUP=$ACR_NAME ? in https://docs.microsoft.com/en-us/azure/container-registry/container-registry-tutorial-quick-task
 CONTAINER="helloacrtasks:v1"
+
+COSMOS_DB_NAME=aci-cosmos-db-$RANDOM
+echo "COSMOS_DB_NAME=$COSMOS_DB_NAME"
+
+# Create Cosmos (NOSQL) db:
+COSMOS_DB_ENDPOINT=$(az cosmosdb create \
+  --resource-group ee9ae253-1d6a-4b80-88e7-909c9f403a95 \
+  --name $COSMOS_DB_NAME \
+  --query documentEndpoint \
+  --output tsv)
+  # Example: https://aci-cosmos-db-29776.documents.azure.com:443/
+
+# Get the Azure Cosmos DB connection key:
+COSMOS_DB_MASTERKEY=$(az cosmosdb list-keys \
+  --resource-group ee9ae253-1d6a-4b80-88e7-909c9f403a95 \
+  --name $COSMOS_DB_NAME \
+  --query primaryMasterKey \
+  --output tsv)  
+
+
+az container create \
+  --resource-group ee9ae253-1d6a-4b80-88e7-909c9f403a95 \
+  --name aci-demo-secure \
+  --image microsoft/azure-vote-front:cosmosdb \
+  --ip-address Public \
+  --location $ACR_LOCATION \
+  --secure-environment-variables \
+    COSMOS_DB_ENDPOINT=$COSMOS_DB_ENDPOINT \
+    COSMOS_DB_MASTERKEY=$COSMOS_DB_MASTERKEY
+
+# display container's environment variables:
+az container show \
+  --resource-group ee9ae253-1d6a-4b80-88e7-909c9f403a95 \
+  --name aci-demo-secure \
+  --query containers[0].environmentVariables
+
+# Get container's public IP address:
+az container show \
+  --resource-group ee9ae253-1d6a-4b80-88e7-909c9f403a95 \
+  --name aci-demo-secure \
+  --query ipAddress.ip \
+  --output tsv
+   # Example: 52.151.246.191
+
+
+############################
+
 # Create an Azure Container Registry for an app:
 az acr create --name $ACR_NAME --sku Premium \
    --resource-group $RES_GROUP
@@ -84,3 +132,67 @@ curl $IP_ADDRESS
 # Clean up resources:
 az container delete --resource-group $RES_GROUP \
    --name $CONTAINER
+
+# Replicate a registry to multiple locations:
+az acr replication create --registry $ACR_NAME \
+   --location $ACR_LOCATION2
+
+# $etrieve all container image replicas created:
+az acr replication list --registry $ACR_NAME \
+   --output table
+
+
+# Based on https://docs.microsoft.com/en-us/learn/modules/run-docker-with-azure-container-instances/2-run-aci
+# Define a DNS name to expose container to the Internet, so it must be unique.
+DNS_NAME_LABEL="aci-demo-$RANDOM"
+echo "DNS_NAME_LABEL=$DNS_NAME_LABEL"  # example: aci-demo-7214
+
+#
+az container create \
+  --resource-group ee9ae253-1d6a-4b80-88e7-909c9f403a95 \
+  --name mycontainer \
+  --image microsoft/aci-helloworld \
+  --ports 80 \
+  --dns-name-label $DNS_NAME_LABEL \
+  --location $ACR_LOCATION
+
+# TODO: Wait a few seconds:
+
+# Check status:
+az container show \
+  --resource-group ee9ae253-1d6a-4b80-88e7-909c9f403a95 \
+  --name mycontainer \
+  --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" \
+  --out table
+
+   # FQDN                                            ProvisioningState
+   # ----------------------------------------------  -------------------
+   # aci-demo-7214.southcentralus.azurecontainer.io  Succeeded
+
+   #  "FQDN": "aci-demo-7214.southcentralus.azurecontainer.io",
+   #  "ProvisioningState": "Succeeded"
+
+# TODO: curl 
+#  <title>Welcome to Azure Container Instances!</title>
+
+# Run a container to completion:
+az container create \
+  --resource-group ee9ae253-1d6a-4b80-88e7-909c9f403a95 \
+  --name mycontainer-restart-demo \
+  --image microsoft/aci-wordcount:latest \
+  --restart-policy OnFailure \
+  --location $ACR_LOCATION
+
+az container show \
+  --resource-group ee9ae253-1d6a-4b80-88e7-909c9f403a95 \
+  --name mycontainer-restart-demo \
+  --query containers[0].instanceView.currentState.state
+   # Response: "Terminated"
+
+# View container's logs:
+az container logs \
+  --resource-group ee9ae253-1d6a-4b80-88e7-909c9f403a95 \
+  --name mycontainer-restart-demo
+
+az group delete --resource-group $RES_GROUP
+az ad sp delete --id http://$ACR_NAME-pull
