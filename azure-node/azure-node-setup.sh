@@ -8,6 +8,9 @@
    # https://docs.microsoft.com/learn/paths/administer-containers-in-azure
 
 # This is idempotent by removing what is left over from previous run.
+RESULT="$RANDOM"
+echo RESULT
+exit
 
 ACR_NAME="myApp123Registry"  # this must be unique among all others on Azure
    # Where myApp123 = service short name per https://docs.microsoft.com/en-us/azure/architecture/best-practices/naming-conventions
